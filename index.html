@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander Tours - Descubre Paracas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange: #FF6B35;
+            --blue: #004E89;
+            --green: #2A9D8F;
+            --white: #FFFFFF;
+            --light-gray: #F7F7F7;
+            --dark-gray: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            color: var(--dark-gray);
+        }
+
+        /* Header fijo */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a, .lang-switch {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav a:hover, .lang-switch:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            height: 90vh;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--green) 50%, var(--orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.4s ease;
+            box-shadow: 0 8px 20px rgba(255,107,53,0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255,107,53,0.6);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* About Paracas */
+        .about-paracas {
+            padding: 5rem 2rem;
+            background: var(--light-gray);
+            text-align: center;
+        }
+
+        .about-paracas h2 {
+            font-size: 2.5rem;
+            color: var(--blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-paracas p {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--orange);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+
+        /* Services */
+        .services {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--blue);
+            margin-bottom: 3rem;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .slider {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--orange);
+            transform: scale(1.3);
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-content h3 {
+            font-size: 2rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .service-description.expanded {
+            max-height: 1000px;
+        }
+
+        .service-description p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+
+        .read-more {
+            color: var(--green);
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--orange);
+            transform: translateX(5px);
+        }
+
+        .schedule {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 10px;
+        }
+
+        .schedule h4 {
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .time-slots {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .time-slot {
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border: 2px solid var(--green);
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .price {
+            font-size: 2rem;
+            color: var(--orange);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .book-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(42,157,143,0.4);
+        }
+
+        /* Modal de reserva */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+            background: none;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+            cursor: pointer;
+            z-index: 1500;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37,211,102,0.7);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--blue);
+            margin-bottom: 3rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--blue);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--light-gray);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-answer.expanded {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--blue);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--blue);
+                flex-direction: column;
+                padding: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 1.5rem;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" data-en="Alexander Tours" data-es="Alexander Tours">Alexander Tours</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav class="nav">
+            <a href="#about" data-en="About Paracas" data-es="Sobre Paracas">Sobre Paracas</a>
+            <a href="#services" data-en="Services" data-es="Servicios">Servicios</a>
+            <a href="#faq" data-en="FAQ" data-es="Preguntas">Preguntas</a>
+            <span class="lang-switch" onclick="toggleLanguage()">EN/ES</span>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-en="Discover the Paradise of Paracas" data-es="Descubre el Paraíso de Paracas">Descubre el Paraíso de Paracas</h1>
+            <p data-en="The 2nd most visited destination by foreigners in Peru" data-es="El 2º destino más visitado por extranjeros en Perú">El 2º destino más visitado por extranjeros en Perú</p>
+            <button class="cta-button" onclick="scrollToServices()" data-en="Explore Our Tours" data-es="Explora Nuestros Tours">Explora Nuestros Tours</button>
+        </div>
+    </section>
+
+    <!-- About Paracas -->
+    <section class="about-paracas" id="about">
+        <h2 data-en="Why Visit Paracas?" data-es="¿Por Qué Visitar Paracas?">¿Por Qué Visitar Paracas?</h2>
+        <p data-en="Paracas is a stunning coastal destination where the desert meets the sea. Located just 3 hours south of Lima, this natural paradise offers unique biodiversity, fascinating history, and breathtaking landscapes. From the mysterious Candelabro geoglyph to the incredible marine wildlife of the Ballestas Islands, Paracas promises an unforgettable experience." data-es="Paracas es un impresionante destino costero donde el desierto se encuentra con el mar. Ubicado a solo 3 horas al sur de Lima, este paraíso natural ofrece una biodiversidad única, historia fascinante y paisajes que te dejarán sin aliento. Desde el misterioso geoglifo del Candelabro hasta la increíble vida marina de las Islas Ballestas, Paracas promete una experiencia inolvidable.">Paracas es un impresionante destino costero donde el desierto se encuentra con el mar. Ubicado a solo 3 horas al sur de Lima, este paraíso natural ofrece una biodiversidad única, historia fascinante y paisajes que te dejarán sin aliento. Desde el misterioso geoglifo del Candelabro hasta la increíble vida marina de las Islas Ballestas, Paracas promete una experiencia inolvidable.</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label" data-en="Bird Species" data-es="Especies de Aves">Especies de Aves</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label" data-en="Sea Lions" data-es="Lobos Marinos">Lobos Marinos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">335K</div>
+                <div class="stat-label" data-en="Hectares Protected" data-es="Hectáreas Protegidas">Hectáreas Protegidas</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <h2 data-en="Our Tours" data-es="Nuestros Tours">Nuestros Tours</h2>
+        <div class="service-grid">
+            <!-- Reserva Nacional -->
+            <div class="service-card">
+                <div class="slider" id="slider1">
+                    <div class="slide active">
+                        <img src="https://via.placeholder.com/600x350/FF6B35/FFFFFF?text=El+Candelabro" alt="El Candelabro">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/2A9D8F/FFFFFF?text=Playa+La+Mina" alt="Playa La Mina">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/004E89/FFFFFF?text=Mirador+de+Aves" alt="Mirador de Aves">
+                    </div>
+                    <div class="slider-dots" id="dots1"></div>
+                </div>
+                <div class="service-content">
+                    <h3 data-en="Paracas National Reserve" data-es="Reserva Nacional de Paracas">Reserva Nacional de Paracas</h3>
+                    <div class="service-description" id="desc1">
+                        <p><strong data-en="El Candelabro:" data-es="El Candelabro:">El Candelabro:</strong> <span data-en="This mysterious geoglyph carved into the coastal hillside is over 180 meters tall. Dating back to around 200 BC, it's visible from the sea and continues to intrigue archaeologists and visitors alike." data-es="Este misterioso geoglifo tallado en la ladera costera mide más de 180 metros de altura. Data del 200 a.C. aproximadamente, es visible desde el mar y continúa intrigando a arqueólogos y visitantes por igual.">Este misterioso geoglifo tallado en la ladera costera mide más de 180 metros de altura. Data del 200 a.C. aproximadamente, es visible desde el mar y continúa intrigando a arqueólogos y visitantes por igual.</span></p>
+                        <p><strong data-en="Playa La Mina:" data-es="Playa La Mina:">Playa La Mina:</strong> <span data-en="A stunning red sand beach framed by dramatic cliffs. Its unique color comes from volcanic rock, creating a spectacular contrast with the turquoise waters." data-es="Una impresionante playa de arena roja enmarcada por acantilados dramáticos. Su color único proviene de la roca volcánica, creando un contraste espectacular con las aguas turquesas.">Una impresionante playa de arena roja enmarcada por acantilados dramáticos. Su color único proviene de la roca volcánica, creando un contraste espectacular con las aguas turquesas.</span></p>
+                        <p><strong data-en="Bird Viewpoint:" data-es="Mirador de Aves:">Mirador de Aves:</strong> <span data-en="Witness thousands of flamingos, pelicans, and migratory birds in their natural habitat. This is one of the richest ecosystems in Peru." data-es="Observa miles de flamencos, pelícanos y aves migratorias en su hábitat natural. Este es uno de los ecosistemas más ricos del Perú.">Observa miles de flamencos, pelícanos y aves migratorias en su hábitat natural. Este es uno de los ecosistemas más ricos del Perú.</span></p>
+                    </div>
+                    <span class="read-more" onclick="toggleDescription('desc1')" data-en="Read more..." data-es="Leer más...">Leer más...</span>
+                    
+                    <div class="schedule">
+                        <h4 data-en="Schedules:" data-es="Horarios:">Horarios:</h4>
+                        <div class="time-slots">
+                            <span class="time-slot">10:00 AM</span>
+                            <span class="time-slot">2:00 PM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price" id="price-ballestas">S/ 45.00</div>
+                    <button class="book-button" onclick="openModal('ballestas')" data-en="Book Now" data-es="Reservar Ahora">Reservar Ahora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <h2 data-en="Frequently Asked Questions" data-es="Preguntas Frecuentes">Preguntas Frecuentes</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span data-en="What's included in the tours?" data-es="¿Qué incluyen los tours?">¿Qué incluyen los tours?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="All tours include professional bilingual guides, transportation, and entrance fees. Life jackets are provided for the Ballestas Islands tour." data-es="Todos los tours incluyen guías profesionales bilingües, transporte y tarifas de entrada. Se proporcionan chalecos salvavidas para el tour de Islas Ballestas.">Todos los tours incluyen guías profesionales bilingües, transporte y tarifas de entrada. Se proporcionan chalecos salvavidas para el tour de Islas Ballestas.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span data-en="How long do the tours last?" data-es="¿Cuánto duran los tours?">¿Cuánto duran los tours?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="The Ballestas Islands tour takes approximately 2 hours. The Paracas National Reserve tour lasts 4 hours." data-es="El tour a Islas Ballestas dura aproximadamente 2 horas. El tour a la Reserva Nacional de Paracas dura 4 horas.">El tour a Islas Ballestas dura aproximadamente 2 horas. El tour a la Reserva Nacional de Paracas dura 4 horas.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span data-en="What should I bring?" data-es="¿Qué debo llevar?">¿Qué debo llevar?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="We recommend sunscreen, sunglasses, a hat, comfortable shoes, and a camera. For the boat tour, bring a light jacket as it can be windy." data-es="Recomendamos protector solar, lentes de sol, sombrero, zapatos cómodos y cámara. Para el tour en bote, trae una chaqueta ligera ya que puede hacer viento.">Recomendamos protector solar, lentes de sol, sombrero, zapatos cómodos y cámara. Para el tour en bote, trae una chaqueta ligera ya que puede hacer viento.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span data-en="Can I cancel my reservation?" data-es="¿Puedo cancelar mi reserva?">¿Puedo cancelar mi reserva?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes, free cancellation up to 24 hours before the tour. Contact us via WhatsApp for cancellations." data-es="Sí, cancelación gratuita hasta 24 horas antes del tour. Contáctanos vía WhatsApp para cancelaciones.">Sí, cancelación gratuita hasta 24 horas antes del tour. Contáctanos vía WhatsApp para cancelaciones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Alexander Tours</h3>
+            <p data-en="Your trusted tour operator in Paracas, Ica, Peru" data-es="Tu operador turístico de confianza en Paracas, Ica, Perú">Tu operador turístico de confianza en Paracas, Ica, Perú</p>
+            <p style="margin-top: 1rem;">📍 Paracas, Ica, Perú</p>
+            <p>📧 info@alexandertours.com</p>
+            <p>📱 WhatsApp: +51 999 999 999</p>
+            <p style="margin-top: 2rem; font-size: 0.9rem;">© 2024 Alexander Tours. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/51987320381?text=Hola!%20Quiero%20información%20sobre%20los%20tours" class="whatsapp-float" target="_blank">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 8.135-2.135c2.369 1.313 5.047 2.135 7.865 2.135 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.274 1.383 1.408-5.245-0.321-0.532c-1.354-2.247-2.069-4.848-2.069-7.445 0-7.983 6.497-14.48 14.48-14.48s14.48 6.497 14.48 14.48-6.497 14.48-14.48 14.48zM21.305 18.421c-0.292-0.146-1.732-0.854-2-0.951-0.269-0.097-0.464-0.146-0.659 0.146s-0.757 0.951-0.927 1.146c-0.171 0.195-0.341 0.22-0.634 0.073-0.292-0.146-1.234-0.455-2.351-1.451-0.869-0.775-1.456-1.733-1.626-2.025s-0.018-0.45 0.128-0.595c0.132-0.132 0.292-0.341 0.439-0.512s0.195-0.292 0.292-0.487c0.097-0.195 0.049-0.366-0.024-0.512s-0.659-1.586-0.903-2.171c-0.238-0.571-0.479-0.493-0.659-0.502-0.171-0.009-0.366-0.011-0.561-0.011s-0.512 0.073-0.78 0.366c-0.269 0.292-1.024 1-1.024 2.439s1.048 2.829 1.195 3.024c0.146 0.195 2.059 3.14 4.989 4.403 0.697 0.301 1.241 0.481 1.665 0.616 0.7 0.223 1.337 0.191 1.841 0.116 0.562-0.084 1.732-0.708 1.976-1.391s0.244-1.268 0.171-1.391c-0.073-0.122-0.269-0.195-0.561-0.341z"/>
+        </svg>
+    </a>
+
+    <!-- Reservation Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <h2 data-en="Book Your Tour" data-es="Reserva Tu Tour" style="color: var(--blue); margin-bottom: 1.5rem;">Reserva Tu Tour</h2>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div class="form-group">
+                    <label data-en="Full Name" data-es="Nombre Completo">Nombre Completo</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label data-en="Email" data-es="Correo Electrónico">Correo Electrónico</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label data-en="Phone Number" data-es="Número de Teléfono">Número de Teléfono</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label data-en="Tour" data-es="Tour">Tour</label>
+                    <select id="tour" required onchange="updateScheduleOptions()">
+                        <option value="" data-en="Select a tour" data-es="Selecciona un tour">Selecciona un tour</option>
+                        <option value="ballestas" data-en="Ballestas Islands" data-es="Islas Ballestas">Islas Ballestas</option>
+                        <option value="reserva" data-en="Paracas National Reserve" data-es="Reserva Nacional de Paracas">Reserva Nacional de Paracas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-en="Date" data-es="Fecha">Fecha</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label data-en="Schedule" data-es="Horario">Horario</label>
+                    <select id="schedule" required>
+                        <option value="" data-en="Select a schedule" data-es="Selecciona un horario">Selecciona un horario</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-en="Number of People" data-es="Número de Personas">Número de Personas</label>
+                    <input type="number" id="people" min="1" required>
+                </div>
+                <button type="submit" class="submit-button" data-en="Confirm Booking" data-es="Confirmar Reserva">Confirmar Reserva</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN DE GOOGLE SHEETS
+        // IMPORTANTE: Reemplaza esta URL con tu URL de Apps Script después del deployment
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-ye1k0WiG3H2s6le-PPgiooQZiimC0eiknzu-kpNplQg6HRKtc6J3lOLOVAmvRstB/exec';
+
+        // Language Toggle
+        let currentLang = 'es';
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            document.querySelectorAll('[data-en][data-es]').forEach(el => {
+                if (el.tagName === 'INPUT' || el.tagName === 'OPTION') {
+                    el.textContent = el.getAttribute(`data-${currentLang}`);
+                } else {
+                    el.textContent = el.getAttribute(`data-${currentLang}`);
+                }
+            });
+        }
+
+        // Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav').classList.toggle('active');
+        }
+
+        // Smooth Scroll
+        function scrollToServices() {
+            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Image Sliders
+        function initSlider(sliderId, dotsId) {
+            const slider = document.getElementById(sliderId);
+            const slides = slider.querySelectorAll('.slide');
+            const dotsContainer = document.getElementById(dotsId);
+            let currentSlide = 0;
+
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(index);
+                dotsContainer.appendChild(dot);
+            });
+
+            function goToSlide(n) {
+                slides[currentSlide].classList.remove('active');
+                dotsContainer.children[currentSlide].classList.remove('active');
+                currentSlide = n;
+                slides[currentSlide].classList.add('active');
+                dotsContainer.children[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                goToSlide((currentSlide + 1) % slides.length);
+            }
+
+            setInterval(nextSlide, 4000);
+        }
+
+        // Initialize sliders
+        initSlider('slider1', 'dots1');
+        initSlider('slider2', 'dots2');
+
+        // Toggle Description
+        function toggleDescription(id) {
+            const desc = document.getElementById(id);
+            desc.classList.toggle('expanded');
+            const button = desc.previousElementSibling;
+            button.textContent = desc.classList.contains('expanded') ? 
+                (currentLang === 'es' ? 'Leer menos...' : 'Read less...') : 
+                (currentLang === 'es' ? 'Leer más...' : 'Read more...');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('span:last-child');
+            answer.classList.toggle('expanded');
+            icon.textContent = answer.classList.contains('expanded') ? '−' : '+';
+        }
+
+        // Modal Functions
+        function openModal(tourType) {
+            document.getElementById('bookingModal').classList.add('active');
+            document.getElementById('tour').value = tourType;
+            updateScheduleOptions();
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.getElementById('bookingForm').reset();
+        }
+
+        // Update schedule options based on selected tour
+        function updateScheduleOptions() {
+            const tour = document.getElementById('tour').value;
+            const scheduleSelect = document.getElementById('schedule');
+            scheduleSelect.innerHTML = '<option value="">Selecciona un horario</option>';
+
+            if (tour === 'ballestas') {
+                const times = ['8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM'];
+                times.forEach(time => {
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+                    scheduleSelect.appendChild(option);
+                });
+            } else if (tour === 'reserva') {
+                const times = ['10:00 AM', '2:00 PM'];
+                times.forEach(time => {
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+                    scheduleSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Load prices from Google Sheets
+        async function loadPrices() {
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=getPrices`);
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    document.getElementById('price-ballestas').textContent = `S/ ${result.data.ballestas}`;
+                    document.getElementById('price-reserva').textContent = `S/ ${result.data.reserva}`;
+                }
+            } catch (error) {
+                console.error('Error loading prices:', error);
+                // Mantener precios por defecto si falla
+            }
+        }
+
+        // Submit booking to Google Sheets
+        async function submitBooking(event) {
+            event.preventDefault();
+            
+            const submitBtn = event.target.querySelector('.submit-button');
+            submitBtn.disabled = true;
+            submitBtn.textContent = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                tour: document.getElementById('tour').value,
+                date: document.getElementById('date').value,
+                schedule: document.getElementById('schedule').value,
+                people: document.getElementById('people').value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=saveBooking`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(currentLang === 'es' ? 
+                        '¡Reserva confirmada! Recibirás un email de confirmación. Te contactaremos pronto.' : 
+                        'Booking confirmed! You will receive a confirmation email. We will contact you soon.');
+                    closeModal();
+                    
+                    // Enviar también a WhatsApp
+                    const tourName = formData.tour === 'ballestas' ? 'Islas Ballestas' : 'Reserva Nacional de Paracas';
+                    const message = `Nueva reserva:%0A- Tour: ${tourName}%0A- Fecha: ${formData.date}%0A- Horario: ${formData.schedule}%0A- Personas: ${formData.people}%0A- Nombre: ${formData.name}%0A- Tel: ${formData.phone}`;
+                    window.open(`https://wa.me/51999999999?text=${message}`, '_blank');
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                alert(currentLang === 'es' ? 
+                    'Error al enviar la reserva. Por favor, contáctanos por WhatsApp.' : 
+                    'Error submitting booking. Please contact us via WhatsApp.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = currentLang === 'es' ? 'Confirmar Reserva' : 'Confirm Booking';
+            }
+        }
+
+        // Set minimum date to today
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+        // Load prices on page load
+        loadPrices();
+
+        // Close modal when clicking outside
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
+                    
+                    <div class="price" id="price-reserva">S/ 60.00</div>
+                    <button class="book-button" onclick="openModal('reserva')" data-en="Book Now" data-es="Reservar Ahora">Reservar Ahora</button>
+                </div>
+            </div>
+
+            <!-- Islas Ballestas -->
+            <div class="service-card">
+                <div class="slider" id="slider2">
+                    <div class="slide active">
+                        <img src="https://via.placeholder.com/600x350/004E89/FFFFFF?text=Embarcacion+1" alt="Embarcación">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/FF6B35/FFFFFF?text=Embarcacion+2" alt="Embarcación 2">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/2A9D8F/FFFFFF?text=Perfil+de+Cristo" alt="Perfil de Cristo">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/FF6B35/FFFFFF?text=Diversion" alt="Diversión">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/004E89/FFFFFF?text=Vida+Marina" alt="Vida Marina">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/600x350/2A9D8F/FFFFFF?text=Aventura" alt="Aventura">
+                    </div>
+                    <div class="slider-dots" id="dots2"></div>
+                </div>
+                <div class="service-content">
+                    <h3 data-en="Ballestas Islands" data-es="Islas Ballestas">Islas Ballestas</h3>
+                    <div class="service-description" id="desc2">
+                        <p data-en="Known as the 'Poor Man's Galápagos,' the Ballestas Islands are a marine sanctuary teeming with wildlife. During this exciting boat tour, you'll encounter:" data-es="Conocidas como las 'Galápagos de los Pobres', las Islas Ballestas son un santuario marino repleto de vida silvestre. Durante este emocionante tour en bote, encontrarás:">Conocidas como las "Galápagos de los Pobres", las Islas Ballestas son un santuario marino repleto de vida silvestre. Durante este emocionante tour en bote, encontrarás:</p>
+                        <p><strong data-en="Sea Lions:" data-es="Lobos Marinos:">Lobos Marinos:</strong> <span data-en="Watch colonies of playful sea lions basking on the rocks and swimming in the crystal-clear waters." data-es="Observa colonias de juguetones lobos marinos descansando en las rocas y nadando en aguas cristalinas.">Observa colonias de juguetones lobos marinos descansando en las rocas y nadando en aguas cristalinas.</span></p>
+                        <p><strong data-en="Humboldt Penguins:" data-es="Pingüinos de Humboldt:">Pingüinos de Humboldt:</strong> <span data-en="See these adorable endangered penguins in their natural habitat." data-es="Observa estos adorables pingüinos en peligro de extinción en su hábitat natural.">Observa estos adorables pingüinos en peligro de extinción en su hábitat natural.</span></p>
+                        <p><strong data-en="Christ Profile:" data-es="Perfil de Cristo:">Perfil de Cristo:</strong> <span data-en="A natural rock formation that resembles Christ's face - a photographic highlight of the tour." data-es="Una formación rocosa natural que se asemeja al rostro de Cristo - un punto destacado fotográfico del tour.">Una formación rocosa natural que se asemeja al rostro de Cristo - un punto destacado fotográfico del tour.</span></p>
+                        <p data-en="The tour includes a stop to view El Candelabro from the water." data-es="El tour incluye una parada para ver El Candelabro desde el agua.">El tour incluye una parada para ver El Candelabro desde el agua.</p>
+                    </div>
+                    <span class="read-more" onclick="toggleDescription('desc2')" data-en="Read more..." data-es="Leer más...">Leer más...</span>
+                    
+                    <div class="schedule">
+                        <h4 data-en="Schedules:" data-es="Horarios:">Horarios:</h4>
+                        <div class="time-slots">
+                            <span class="time-slot">8:00 AM</span>
+                            <span class="time-slot">9:00 AM</span>
+                            <span class="time-slot">10:00 AM</span>
+                            <span class="time-slot">11:00 AM</span>
+                            <span class="time-slot">12:00 PM</span>
+                            <span class="time-slot">1:00 PM</span>
+                            <span class="time-slot">2:00 PM</span>
+                        </div>
